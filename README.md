@@ -11,7 +11,7 @@ Otherwise you will get an error message about invalid JSON format
 
 To get the average times of the JSON inputted and to exit the program simply type exit and you will recieve your output.
 
-Tests are included but im not sure how to run them through the command line, but they are included in the jar
+Tests are included but im not sure how to run them through the command line, I ran them through intelliJ but they are included in the jar
 
 Libraries used 
 
