@@ -1,13 +1,14 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private static ArrayList<Activity> actionsTaken = new ArrayList<>();
     private static ArrayList<String> actionTypes = new ArrayList<>();
+
+    //{"action" :"jump", "time": 100} *testJsonInput
 
     /**
      * The main method that runs the program. Takes in user input for actions taken.
@@ -26,6 +27,7 @@ public class Main {
                 stopper = true;
                 scanner.close();
             }
+            //Try catch that will see if the input is not valid json or the exit command
             else {
                 try {
                     Activity activity = g.fromJson(input, Activity.class);
@@ -60,7 +62,6 @@ public class Main {
 
         for (int i = 0; i < actionTypes.size(); i++) {
             for (int j = 0; j < actionsTaken.size(); j++) {
-
                 //comparing the action type to make sure we're adding the right times to the right action
                 if(actionTypes.get(i).equals(actionsTaken.get(j).getAction())) {
                     totalTime += actionsTaken.get(j).getTime();
@@ -74,16 +75,27 @@ public class Main {
         }
         String finalJson = generateFinalJson(averageTimes);
         return finalJson;
-        //{"action" :"jump", "time": 100}
     }
 
+    /**
+     *  Given an arrayList of the average times to complete actions will generate the return JSON based on action and time
+     * @param averageTimes
+     * @return
+     */
     public static String generateFinalJson(ArrayList<Integer> averageTimes){
         String finishedJson = "";
         for(int i = 0; i < actionTypes.size(); i++){
-            finishedJson = finishedJson +  "{ \"action\":\"" + actionTypes.get(i) +
-                    "\", \"avg\":" + averageTimes.get(i) + "}";
+            finishedJson = finishedJson +  "{\"action\":\"" + actionTypes.get(i) + "\", \"avg\":" + averageTimes.get(i) + "} ";
 
         }
         return finishedJson;
+    }
+
+    /**
+     * Used for testing purposes so that lists get cleared between tests.
+     */
+    public static void resetLists(){
+        actionsTaken.clear();
+        actionTypes.clear();
     }
 }
